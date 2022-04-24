@@ -21,16 +21,18 @@ print(f'Today\'s Date: {d2}')
 today_coords = day_of_week_coord[dow]
 
 print(f'Today\'s Coords: {today_coords}')
-def after_info():
 
-    pyautogui.alert(text=f'Have a Nice Day, Mr. Price. \n{today_date.strftime("%B %d, %Y")} \n(this alert will auto '
+
+def after_info():
+    pyautogui.alert(text=f'Have a Nice Day, Mr. Cesta. \n{today_date.strftime("%B %d, %Y")} \n(this alert will auto '
                          f'close...)',
                     title='Billy Price\'s EO Program',
-                      timeout=5000)
+                    timeout=5000)
     driver.quit()
     return exit()
 
-def login1(emp_number='025955', emp_password='maiaLia456', emp_security_answer='barbados'):
+
+def login1(emp_number='034756', emp_password='Petey44!', emp_security_answer='barbados'):
     schedule.cancel_job(clk)
     driver.get(
         'https://vress.wynnresorts.com/ess/Default.aspx?#/roster')
@@ -43,26 +45,24 @@ def login1(emp_number='025955', emp_password='maiaLia456', emp_security_answer='
         if driver.find_element(By.NAME, 'answer'):
             driver.find_element(By.NAME, "answer").send_keys(emp_security_answer, Keys.ENTER)
             driver.implicitly_wait(5)
-    except:
+    except NotImplemented:
         print("Security Backup Password Not Required...")
 
 
 def click():
-
     clk.scheduler.cancel_job(click_awake)
     x = 0
     a = today_coords[0]
     b = today_coords[1]
-    while x <= 11:
+    while x <= 2:
         pyautogui.click(a, b)
-        pyautogui.click(1370, 605)  # EO LIST
+        pyautogui.click(1362, 554)  # EO LIST
         pyautogui.click(1070, 705)  # EO LIST SUBMIT
         pyautogui.click(1170, 705)  # 1st close
         pyautogui.click(1427, 727)  # 2nd close
         x += 1
-    #driver.quit()
+    # driver.quit()
     after_info()
-
 
     return exit()
 
@@ -73,14 +73,15 @@ def click_awake():
     pyautogui.moveTo(100, 200)
 
 
-
-hours = str('22')
-mins = str('09')  # for the login and start click
+hours = str('10')
+mins = str('14')  # for the login and start click
 seconds_login = str('00')  # Login on the minute before avail time launches the WIRE
-seconds_click = str('20')  # start clicking 3 seconds before avail time
+clk_hrs = str('10')
+clk_mins = str('15')  # for the login and start click
+seconds_click = str('00')  # start clicking 3 seconds before avail time
 
 schedule.every().day.at(f"{hours}:{mins}:{seconds_login}").do(login1)
-schedule.every().day.at(f"{hours}:{mins}:{seconds_click}").do(click)
+schedule.every().day.at(f"{clk_hrs}:{clk_mins}:{seconds_click}").do(click)
 
 time_str = dt.now().strftime(":%S")
 print(time_str)
