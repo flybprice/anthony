@@ -32,7 +32,7 @@ def after_info():
     return exit()
 
 
-def login1(emp_number='034756', emp_password='Petey44!', emp_security_answer='barbados'):
+def login1(emp_number='034756', emp_password='Peteyc44!', emp_security_answer='None'):
     schedule.cancel_job(clk)
     driver.get(
         'https://vress.wynnresorts.com/ess/Default.aspx?#/roster')
@@ -45,16 +45,18 @@ def login1(emp_number='034756', emp_password='Petey44!', emp_security_answer='ba
         if driver.find_element(By.NAME, 'answer'):
             driver.find_element(By.NAME, "answer").send_keys(emp_security_answer, Keys.ENTER)
             driver.implicitly_wait(5)
-    except NotImplemented:
+    except:
         print("Security Backup Password Not Required...")
-
+        click()
+    pyautogui.sleep(10)
+    click()
 
 def click():
     clk.scheduler.cancel_job(click_awake)
     x = 0
     a = today_coords[0]
     b = today_coords[1]
-    while x <= 2:
+    while x <= 10:
         pyautogui.click(a, b)
         pyautogui.click(1362, 554)  # EO LIST
         pyautogui.click(1070, 705)  # EO LIST SUBMIT
@@ -63,7 +65,6 @@ def click():
         x += 1
     # driver.quit()
     after_info()
-
     return exit()
 
 
@@ -77,8 +78,8 @@ hours = str('10')
 mins = str('14')  # for the login and start click
 seconds_login = str('00')  # Login on the minute before avail time launches the WIRE
 clk_hrs = str('10')
-clk_mins = str('15')  # for the login and start click
-seconds_click = str('00')  # start clicking 3 seconds before avail time
+clk_mins = str('14')  # for the login and start click
+seconds_click = str('58')  # start clicking 3 seconds before avail time
 
 schedule.every().day.at(f"{hours}:{mins}:{seconds_login}").do(login1)
 schedule.every().day.at(f"{clk_hrs}:{clk_mins}:{seconds_click}").do(click)
@@ -89,3 +90,4 @@ clk = schedule.every().minute.at(time_str).do(click_awake)
 
 while True:
     schedule.run_pending()
+
